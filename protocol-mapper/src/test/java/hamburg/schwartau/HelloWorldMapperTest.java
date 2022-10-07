@@ -48,7 +48,9 @@ public class HelloWorldMapperTest {
         final List<String> configPropertyNames = new HelloWorldMapper().getConfigProperties().stream()
                 .map(ProviderConfigProperty::getName)
                 .collect(Collectors.toList());
+        //assertThat(configPropertyNames).containsExactly(OIDCAttributeMapperHelper.TOKEN_CLAIM_NAME, OIDCAttributeMapperHelper.INCLUDE_IN_ID_TOKEN, OIDCAttributeMapperHelper.INCLUDE_IN_ACCESS_TOKEN, OIDCAttributeMapperHelper.INCLUDE_IN_USERINFO, OIDCAttributeMapperHelper.JSON_TYPE);
         assertThat(configPropertyNames).containsExactly(OIDCAttributeMapperHelper.TOKEN_CLAIM_NAME, OIDCAttributeMapperHelper.INCLUDE_IN_ID_TOKEN, OIDCAttributeMapperHelper.INCLUDE_IN_ACCESS_TOKEN, OIDCAttributeMapperHelper.INCLUDE_IN_USERINFO);
+
     }
 
     @Test
@@ -71,6 +73,7 @@ public class HelloWorldMapperTest {
     private AccessToken transformAccessToken(UserSessionModel userSessionModel) {
         final ProtocolMapperModel mappingModel = new ProtocolMapperModel();
         mappingModel.setConfig(createConfig());
+        //TODO mock ClientSessionContext to make the unit test happy
         return new HelloWorldMapper().transformAccessToken(new AccessToken(), mappingModel, null, userSessionModel, null);
     }
 

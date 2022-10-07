@@ -4,6 +4,7 @@ import org.keycloak.models.ClientSessionContext;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.ProtocolMapperModel;
 import org.keycloak.models.UserSessionModel;
+import org.keycloak.protocol.ProtocolMapperUtils;
 import org.keycloak.protocol.oidc.mappers.AbstractOIDCProtocolMapper;
 import org.keycloak.protocol.oidc.mappers.OIDCAccessTokenMapper;
 import org.keycloak.protocol.oidc.mappers.OIDCAttributeMapperHelper;
@@ -43,13 +44,18 @@ public class HelloWorldMapper extends AbstractOIDCProtocolMapper implements OIDC
         // mapper should never be available for some sort of options, e.g. like the id token, just don't
         // implement the corresponding interface.
         OIDCAttributeMapperHelper.addIncludeInTokensConfig(configProperties, HelloWorldMapper.class);
+        //configProperties.set(0
+        
+        //mappingModel.getConfig().get(ProtocolMapperUtils.MULTIVALUED));
+        
+        //OIDCAttributeMapperHelper.addJsonTypeConfig(configProperties);
     }
 
     @Override
     public String getDisplayCategory() {
         return "Token mapper";
     }
-
+    
     @Override
     public String getDisplayType() {
         return "Hello World Mapper";
@@ -81,7 +87,8 @@ public class HelloWorldMapper extends AbstractOIDCProtocolMapper implements OIDC
         // be configured in keycloak for this protocol mapper were set in the static intializer of this class.
         //
         // Sets a static "Hello world" string, but we could write a dynamic value like a group attribute here too.
-        OIDCAttributeMapperHelper.mapClaim(token, mappingModel, "hello world");
+    	OIDCAttributeMapperHelper.mapClaim(token, mappingModel, clientSessionCtx.getScopeString());
+       //OIDCAttributeMapperHelper.mapClaim(token, mappingModel, "Hello World" );
     }
 
 }
